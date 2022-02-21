@@ -1,0 +1,152 @@
+.playContainer {
+  width: 100vw;
+  max-width: 1920px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 80px auto -2%;
+  .connectWalletContainer {
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1.6%;
+    min-width: 200px;
+    h1{
+      @media (max-width: 800px) {
+        font-size: 22px;
+        padding-inline: 8%;
+      }
+    }
+    p{
+      @media (max-width: 800px) {
+        font-size: 14px;
+        padding-inline: 8%;
+      }
+    }
+    .swapInfo{
+      display: flex;
+      flex-direction: column;
+      @media (max-width: 800px) {
+        padding-inline: 8%;
+      }
+      h2{
+        display: flex;
+        align-items: center;
+        text-align: center;
+        @media (max-width: 800px) {
+          font-size: 18px;
+        }
+        @media (max-width: 600px) {
+          font-size: 14px;
+        }   
+      }
+      ul{
+        text-align: left;
+        p{
+          margin: 1% 0;
+          padding-inline: 0%;
+        }
+      }
+      a{
+        color: #c9a061;
+        text-decoration: underline;
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+  .connectWallet {
+    border-radius: 14px;
+    color: white;
+    text-decoration: none;
+    padding: 2% 1%;
+    font-family: Dela Gothic One;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 22px;
+    transition: all 0.2s;
+    background: rgba(114, 28, 255, 0.1);
+    border: 2px solid #721cff;
+    cursor: pointer;
+    width: 340px;
+    margin-top: 20px;
+    &:hover {
+      background: #721cff;
+    }
+    @media (max-width: 800px) {
+      font-size: 18px;
+      width: 240px;
+    }
+    @media (max-width: 600px) {
+      font-size: 14px;
+    }
+  }
+  #countdown{
+    color: #721cff;
+    font-family: Dela Gothic One;
+    font-size: 22px;
+    line-height: 22px;
+    @media (max-width: 800px) {
+      font-size: 18px;
+    }
+    @media (max-width: 600px) {
+      font-size: 14px;
+    }    
+  }
+  .nftInfo{
+    border-radius: 14px;
+    color: white;
+    text-decoration: none;
+    padding: 0% 6%;
+    font-family: Dela Gothic One;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 22px;
+    line-height: 22px;
+    transition: all 0.2s;
+    background: rgba(114, 28, 255, 0.1);
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid #00ffa3;
+    margin-top: 20px;
+    @media (max-width: 800px) {
+      font-size: 18px;
+      width: 240px;
+    }
+    @media (max-width: 600px) {
+      font-size: 14px;
+    }
+  }
+  .login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    input{
+      width: 100%;
+      background-color: #07161f;
+      border: none;
+      border-radius: 8px;
+      padding: 4.5% 24%;
+      font-size: 18px;
+      color: white;
+      font-family: "Changa One";
+      font-style: italic;
+      font-weight: normal;
+      outline: none;
+      &:focus {
+        border: 2px solid #5416d6;
+        margin: -2px -2px;
+        overflow: hidden;
+      }
+
+      &:first-child{
+        margin-bottom: 4%;
+      }
+    }
+  }
+}

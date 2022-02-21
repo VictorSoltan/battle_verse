@@ -1,0 +1,275 @@
+header {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding-bottom: 2%;
+  z-index: 99999999;
+  .topBarContainer {
+    position: relative;
+    display: flex;
+    background-color: #0b1e29;
+    height: 68px;
+    width: 100%;
+    z-index: 999999;
+    .topBar {
+      display: flex;
+      justify-content: space-between;
+      padding-inline: 6%;
+      max-width: 1287px;
+      margin: 0 auto;
+      width: 100%;
+      @media (max-width: 600px) {
+        padding-inline: 4%;
+      }
+      .logo {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 14px;
+        width: 10%;
+        height: 140%;
+        min-width: 85px;
+        z-index: 999999;
+        @media (max-width: 800px) {
+          top: 6px;
+          width: 8%;
+        }
+        @media (max-width: 400px) {
+          width: 23%;
+          min-width: 75px;
+        }
+        img {
+          transition: all 400ms;
+          height: 6em;
+          @media (max-width: 800px) {
+            height: 5em;
+          }
+        }
+      }
+      .barCenter {
+        display: flex;
+        align-self: center;
+        justify-content: space-around;
+        width: 17.8em;
+        margin-left: 8em;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 28px;
+        @media (max-width: 1024px) {
+          margin-left: 7.2em;
+          width: 15em;
+        }
+        @media (max-width: 800px) {
+          margin-left: 4.2em;
+          width: 17.4em;
+          font-size: 14px;
+        }
+        @media (max-width: 600px) {
+          display: none;
+        }
+        a {
+          text-decoration: none;
+          color: white;
+          transition: all 0.1s;
+          &:after {
+            content: "";
+            position: absolute;
+            margin-top: 17px;
+            height: 2px;
+            border-top-left-radius: 5rem;
+            border-top-right-radius: 5rem;
+            display: block;
+            background-color: #d4924f;
+          }
+          &:first-child {
+            &:hover:after {
+              width: 5em;
+            }
+          }
+          &:nth-child(2) {
+            &:hover:after {
+              width: 2.9em;
+            }
+          }
+          &:last-child {
+            &:hover:after {
+              width: 6.3em;
+            }
+          }
+        }
+      }
+      .additionalMenu {
+        display: flex;
+        align-self: center;
+        justify-content: space-between;
+        width: 16em;
+        font-family: Montserrat;
+        font-style: normal;
+        font-size: 16px;
+        line-height: 28px;
+        @media (max-width: 1024px) {
+          width: 15em;
+          font-size: 14px;
+          line-height: 28px;
+        }
+        @media (max-width: 800px) {
+          width: 16.2em;
+          font-size: 11px;
+          line-height: 22px;
+        }
+        @media (max-width: 600px) {
+          width: 18.6em;
+          line-height: 16px;
+        }
+        @media (max-width: 400px) {
+          width: 54vw;
+        }
+        @media (max-width: 380px) {
+          width: 52vw;
+          line-height: 14px;
+        }
+        a {
+          padding: 2% 10%;
+          border-radius: 11px;
+          text-decoration: none;
+          color: white;
+          transition: all 0.2s;
+          @media (max-width: 1024px) {
+            padding: 2% 8%;
+          }
+          @media (max-width: 800px) {
+            font-size: 15px;
+            padding: 3% 5%;
+          }
+          @media (max-width: 600px) {
+            padding: 3% 7%;
+            line-height: 24px;
+          }
+          @media (max-width: 400px) {
+            padding: 3% 4vw;
+          }
+          @media (max-width: 380px) {
+            padding: 3% 3vw;
+            font-size: 14px;
+          }
+          &:first-child {
+            background-color: #0b1e29;
+            border: 2px solid #112d3d;
+            &:hover {
+              background-color: #112d3d;
+            }
+          }
+          &:last-child {
+            background: linear-gradient(94.04deg, #e8b86f 1.76%, #523112 94.7%);
+            line-height: 32px;
+            @media (max-width: 800px) {
+              line-height: 26px;
+            }
+            &:hover {
+              background: linear-gradient(
+                94.04deg,
+                #ffd18b 1.76%,
+                #98602d 94.7%
+              );
+            }
+          }
+        }
+      }
+      .openMenu {
+        display: none;
+        align-self: center;
+        width: 2em;
+        div {
+          transition: all 0.6s;
+          background-color: white;
+          width: 27px;
+          height: 3px;
+          background: #ffffff;
+          &:last-child {
+            margin-top: 20%;
+          }
+        }
+        @media (max-width: 600px) {
+          display: block;
+        }
+      }
+      .active {
+        div {
+          &:first-child {
+            opacity: 1;
+            -webkit-transform: rotate(-45deg) translate(-4px, 4px);
+            transform: rotate(-45deg) translate(-4px, 4px);
+          }
+          &:last-child {
+            opacity: 1;
+            -webkit-transform: rotate(45deg) translate(-2px, -3px);
+            transform: rotate(45deg) translate(-2px, -3px);
+          }
+        }
+      }
+    }
+  }
+
+  .adaptiveMenuShadow {
+    position: absolute;
+    width: 100%;
+    top: 68px;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 99999;
+    transition: all 0.4s;
+  }
+  .adaptiveMenu {
+    position: absolute;
+    z-index: 99999;
+    top: 68px;
+    width: 100%;
+    border-top: 1px solid #112d3d;
+    transition: all 1s;
+    div {
+      background: #0b1e29;
+      padding: 1% 8%;
+      &:first-child {
+        padding-top: 8%;
+      }
+      &:last-child {
+        border-bottom-right-radius: 22px;
+        border-bottom-left-radius: 22px;
+        a {
+          border-color: #0b1e29;
+        }
+      }
+      a {
+        text-decoration: none;
+        color: white;
+        display: block;
+        border-bottom: 1px solid #112d3d;
+        width: 100%;
+        padding-bottom: 0%;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 54px;
+      }
+    }
+  }
+}
+.inverted {
+  .logo {
+    height: 100% !important;
+    img {
+      height: 44px !important;
+      margin-top: -20px;
+      @media (max-width: 800px) {
+        margin-top: -6px;
+      }
+    }
+  }
+}
