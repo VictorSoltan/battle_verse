@@ -12,14 +12,17 @@ import Blue4 from '../assets/header/particles/blue4.svg'
 import Green from '../assets/header/particles/green.svg'
 import Green1 from '../assets/header/particles/green2.svg'
 import Green2 from '../assets/header/particles/green3.svg'
+// AdaptPARTICLES 
+import adaptGreen0 from '../assets/header/adaptParticles/Group6002.svg'
+import adaptGreen1 from '../assets/header/adaptParticles/Group6003.svg'
+import adaptGreen2 from '../assets/header/adaptParticles/Group6004.svg'
+import adaptGreen3 from '../assets/header/adaptParticles/Group6005.svg'
+import adaptGreen4 from '../assets/header/adaptParticles/Group6006.svg'
+import adaptGreen5 from '../assets/header/adaptParticles/Group6007.svg'
+import adaptGreen6 from '../assets/header/adaptParticles/Group6008.svg'
 
-import Purple1 from '../assets/header/particles/purple1.svg'
-import Purple2 from '../assets/header/particles/purple2.svg'
-import Purple3 from '../assets/header/particles/purple3.svg'
-import Purple4 from '../assets/header/particles/purple4.svg'
-
-import Video from '../assets/header/hero_shroom_4-transcode.mp4'
-import VideoAdaptive from '../assets/header/hero_shroom_4-transcode.mp4'
+import Video from '../assets/header/shroom-anim_05.mp4'
+import VideoAdaptive from '../assets/header/shroom-anim_05.mp4'
 import Top3 from '../assets/header/1.png'
 
 import Discord from '../assets/services/discord.svg'
@@ -30,24 +33,26 @@ import Medium from '../assets/services/medium.svg'
 
 export default function HeaderBanner() {
 
-  let blueParticles = [
+  const blueParticles = [
     Blue,
     Blue1,
     Blue2,
     Blue3,
-    Blue4
-  ]
+    Blue4 ]
 
-  let greenParticles = [ 
+  const greenParticles = [ 
     Green, 
     Green1, 
     Green2 ]
 
-  let purpleParticles = [ 
-    Purple1, 
-    Purple2, 
-    Purple3, 
-    Purple4 ]
+  const adaptGreen = [
+    adaptGreen0,
+    adaptGreen1,
+    adaptGreen2,
+    adaptGreen3,
+    adaptGreen4,
+    adaptGreen5,
+    adaptGreen6 ]
 
   const footer = [
     {icon: Discord, color: '#525FFF',
@@ -74,16 +79,25 @@ export default function HeaderBanner() {
             <div className='light' />
         </div>
         <div className='particlesAnime'>
-          <div className='blueParticles'>
-            {blueParticles.map((item, index) => (
-              <img key={index} src={item} alt="particle" />
-            ))}
-          </div>
-          <div className='greenParticles'>
-            {greenParticles.map((item, index) => (
-              <img key={index} src={item} alt="particle"/>
-            ))}
-          </div>
+          {window.innerWidth > 800 ?
+            <>
+              <div className='blueParticles'>
+                {blueParticles.map((item, index) => (
+                  <img key={index} src={item} alt="particle" />
+                ))}
+              </div>
+              <div className='greenParticles'>
+                {greenParticles.map((item, index) => (
+                  <img key={index} src={item} alt="particle"/>
+                ))}
+              </div>
+            </> : 
+            <div className='adaptGreenParticles'>
+              {adaptGreen.map((item, index) => (
+                <img key={index} src={item} alt="particle"/>
+              ))}
+            </div> 
+          }
         </div>
         <div className='info'>
           <div className='battle_shrooms'>
@@ -97,10 +111,11 @@ export default function HeaderBanner() {
                 onMouseDown={e => {e.target.style.fontSize = '16px'; e.target.style.marginInline = '2px'; e.target.style.filter = 'brightness(85%)'}}
                 onMouseLeave={e => {e.target.style.fontSize = '18px'; e.target.style.marginInline = '0px'; e.target.style.filter = 'brightness(100%)'}} 
                 onMouseUp={e => {e.target.style.fontSize = '18px'; e.target.style.marginInline = '0px'; e.target.style.filter = 'brightness(100%)'}} 
-                href={item.link} target="_blank" rel="noopener noreferrer">
+                href={item.link} rel="stylesheet" target="_blank" rel="noopener noreferrer">
                 {item.value}
               </a>
             ))}
+            <div id="via-widget" data-id="ace4c308-e20d-4a70-82eb-91db2fea7a89"/>
           </div>          
         </div>
         <div className='threeD'>

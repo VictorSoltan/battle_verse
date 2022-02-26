@@ -46,7 +46,7 @@ export default function Header() {
             ))}
           </div>
           <div className='additionalMenu'>
-            {[{link: 'https://docs.battleverse.io', value: 'Docs'}, {link: null, value: 'Marketplace'}].map((item, index) => (
+            {[{link: 'https://docs.battleverse.io', value: 'Docs'}, {link: 'https://opensea.io/collection/baby-combat-bots-g1', value: 'Marketplace'}].map((item, index) => (
               <a key={index} 
                 onMouseUp={e => {e.target.style.fontSize = width>1024? '16px' : width>800 ? '14px' : width>380 ?  '15px' : '14px' ; e.target.style.marginInline = '0px'; e.target.style.filter = 'brightness(100%)'}}
                 onMouseDown={e => {e.target.style.fontSize = width>1024? '15px' : width>800 ? '13px' : width>380 ? '14px' : '13px' ; e.target.style.marginInline = '1px'; e.target.style.filter = 'brightness(55%)'}}

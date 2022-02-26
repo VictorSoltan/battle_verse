@@ -1,5 +1,5 @@
 .partnershipContainer{
-    margin: 0% auto 0;
+    margin: 8% auto 0;
     max-width: 1440px;
     padding: 0 60px 4%;
     @media (max-width: 1024px) {
@@ -8,16 +8,6 @@
     @media (max-width: 600px) {
         margin: 10% auto 0;
         padding: 0 20px 4%;
-    }
-    &:nth-child(1){
-        background: red;
-        @media (max-width: 600px) {
-            .active{
-                &:before {
-                    width: 20.2em;
-                }
-            }
-        }
     }
     .partnerHeader{
         display: flex;
@@ -33,7 +23,7 @@
             padding-bottom: 0.9em;
             padding-right: 0em;
         }
-        button{
+        h2{
             font-family: Dela Gothic One;
             font-style: normal;
             font-weight: normal;
@@ -43,10 +33,13 @@
             text-transform: uppercase;
             text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
             background: linear-gradient(170deg, #63A3C9 40%, #0C212E 92%);
+            background: -webkit-linear-gradient(0deg, #63A3C9 40%, #0C212E 92%);
+            background: -moz-linear-gradient(0deg, #63A3C9 40%, #0C212E 92%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             border: none;
             cursor: pointer;
+            margin-bottom: 0;
             @media (max-width: 1366px) {
                 font-size: 20px;
             }
@@ -55,10 +48,12 @@
             }
             &:hover{
                 background: linear-gradient(170deg, #ffffff 40%, #FFC178 80%, #272C12 92%);
+                background: -webkit-linear-gradient(0deg, #ffffff 40%, #FFC178 80%, #272C12 92%);
+                background: -moz-linear-gradient(0deg, #ffffff 40%, #FFC178 80%, #272C12 92%);                
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
             }
-            &:nth-child(3){
+            &:nth-child(2){
                 &:before {
                     width: 15.2em !important;
                 }
@@ -66,6 +61,8 @@
         }
         .active{
             background: linear-gradient(170deg, #ffffff 40%, #FFC178 80%, #272C12 92%);
+            background: -webkit-linear-gradient(0deg, #ffffff 40%, #FFC178 80%, #272C12 92%);
+            background: -moz-linear-gradient(0deg, #ffffff 40%, #FFC178 80%, #272C12 92%);              
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             &:before {
@@ -75,6 +72,8 @@
                 width: 10.2em;
                 height: 6px;
                 background: linear-gradient(90deg, #FFFBF6 0%, #E7B376 49.72%, #261702 100%);
+                background: -webkit-linear-gradient(90deg, #FFFBF6 0%, #E7B376 49.72%, #261702 100%);
+                background: -moz-linear-gradient(90deg, #FFFBF6 0%, #E7B376 49.72%, #261702 100%);                   
                 border-radius: 6px;
                 z-index: 99999;
                 @media (max-width: 1366px) {

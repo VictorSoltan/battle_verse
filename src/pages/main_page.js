@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../styles/main_page.scss'
 
 import HeaderBanner from '../components/header_banner';
@@ -27,6 +27,11 @@ import Mushroom3 from '../assets/generations/mushroom3.png'
 import Shrooms_back from '../assets/shrooms/Frame5995.png'
 import BattleShrooms from '../assets/shrooms/Frame5994.png'
 import Shrooms_back1 from '../assets/shrooms/shrooms_back2 1.png'
+// PARTICLES 
+import Green from '../assets/header/particles/green.svg'
+import Green1 from '../assets/header/particles/green2.svg'
+import Green2 from '../assets/header/particles/green4.svg'
+
 
 // TEAM
 import TeamBack from '../assets/team/Paricles.svg'
@@ -53,9 +58,10 @@ import Github from '../assets/services/github.svg'
 
 export default function Main() {
 
-  let [width, setWidth] = useState(window.innerWidth)
-
-  window.addEventListener("resize", () => setWidth(window.innerWidth));
+  const greenParticles = [ 
+    Green, 
+    Green1, 
+    Green2 ]
 
   const cards = [
     {color: '#20F582', img: Shroom1, gen: Group1, shroom: Mushroom1},
@@ -89,29 +95,33 @@ export default function Main() {
         <h4>are cute and dangerous{window.innerWidth < 600 && <br/>} at the same time</h4>
         <div className='youtubeVideo'>
           <img src={BlackShroom} alt="black shroom" />
-          <iframe src="https://www.youtube.com/embed/5pDDQMzb4Xs" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen/>
+          <iframe src="https://www.youtube.com/embed/5pDDQMzb4Xs" title="YouTube video player" frameBorder="0" allowFullScreen/>
           <img src={BlackShroom1} alt="black shroom" />
         </div>
       </div>
       <div className='generations'>
         <h4>Remember,{window.innerWidth < 800 && <br/>} 1st Gen NFTs <br/>
-          will always be more valuable!</h4>
+          will always be{window.innerWidth < 600 && <br/>} more valuable!</h4>
         <div className='lights'>
-          {[...Array(2).keys()].map((index) => (
-            <div className='lightContainer' key={index}>
-              <div className='light' />
-              <div className='particles'>
-                {[...Array(window.width > 1024 ? Math.floor(Math.random() * 4 + 4) : Math.floor(Math.random() * 2 + 3)).keys()].map((indx) => (
+            <div className='lightContainer' >
+            {[...Array(2).keys()].map((index) => (
+              <div className='lightComponent' key={index}>
+                <div className='light'>
+                  <div className='innerLight' />
+                </div>
+                <div className='particles'>
+                  {[...Array(window.width > 1024 ? Math.floor(Math.random() * 4 + 4) : Math.floor(Math.random() * 2 + 3)).keys()].map((indx) => (
                     <div className='particle' key={indx} 
                       style={{background: '#00C2FF', 
                         marginTop: Math.floor(Math.random() * 90) - 25 + "%",
                         marginLeft: Math.floor(Math.random(10) * 5) + "%",
                         animationDuration: Math.floor(Math.random() * 4 + 6) + "s"
                     }}/>
-                ))}
+                  ))}
+                </div>                
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
         <h3>3 generations</h3>
         <div className='cards'>
@@ -138,18 +148,25 @@ export default function Main() {
         </div>
       </div>
       <div className='shrooms'>
-          <img src={Shrooms_back}  className='backShroom'/>
+          <img src={Shrooms_back} alt="shroom" className='backShroom'/>
           <div className='shroomContainer'>
+            <div className='particlesAnime'>
+              <div className='greenParticles'>
+                {greenParticles.map((item, index) => (
+                  <img key={index} src={item} alt="particle"/>
+                ))}
+              </div>
+            </div>            
             <div className='info'>
               <h1>Battle<br/> Shrooms</h1>
               <p>is your ticket to a vast<br/> and awesome Metaverse!</p>
             </div>
             <div className='image'>
               <div className='light' />
-              <img src={BattleShrooms} />
+              <img src={BattleShrooms} alt="Battle Shrooms" />
             </div>
           </div>
-          <img src={Shrooms_back1} className='backShroom' />
+          <img src={Shrooms_back1} className='backShroom' alt="shroom"/>
       </div>
       <Partnership />
       <div className='team' id="Team">
@@ -166,7 +183,7 @@ export default function Main() {
                 <h4>{item.name}</h4>
                 <span>{item.position}</span>
                 <a href={item.link} target="_blank" rel="noopener noreferrer">
-                  <img src={item.icon} alt={item.link} />
+                  <img src={item.icon} alt={item.link}/>
                 </a>
               </div>
             </div>

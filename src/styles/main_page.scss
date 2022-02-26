@@ -76,7 +76,7 @@
       iframe{
         z-index: 9999;
         width: 78%;
-        height: 30vw;
+        height: 38em;
         margin: 0 auto;
         @media (max-width: 1440px) {
           height: 42vw;
@@ -89,6 +89,9 @@
     }
   }
   .generations{
+    @media (max-width: 1440px) {
+      position: relative;
+    }
     h4{
       font-family: Dela Gothic One;
       font-style: normal;
@@ -97,6 +100,9 @@
       text-transform: uppercase;
       @media (min-width: 800px) {
         font-size: 28px;
+      }
+      @media (max-width: 390px) {
+        font-size: 24px !important;
       }
       &:first-child{
         background: linear-gradient(135deg, #fff 35%,#FFE7AB 55%,#FFC481 65%, #331402 75%);
@@ -121,81 +127,112 @@
     }
     .lights{
       position: absolute;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 130%;
-      left: -15%;
       margin-top: -11em;
+      left: -15%;
+      width: 100%;
+      height: 100%;
       @media (max-width: 800px) {
-        margin-top: -5em;
+        margin-top: -15em;
       }
       .lightContainer{
         display: flex;
         justify-content: center;
         align-items: center;
-        .light{
-          width: 521px;
-          height: 521px;
-          opacity: 0.3;
-          background: #59D7FF;
-          filter: blur(500px);
-          transform: rotate(-180deg);
-          border-radius: 50%;
-
-          // -webkit-filter: blur(random(20)*3px + 10px);
-          // filter: blur(random(20)*3px + 10px);
-          // backdrop-filter: blur(random(20)*3px + 10px); 
-          z-index: 0;
-          // @media (max-width: 1024px) {
-          //     width: 160px;
-          //     height: 160px;                    
-          // }
-          // @media (max-width: 500px) {
-          //     width: 120px;
-          //     height: 120px;                    
-          // }
-          @media (max-width: 1024px) {
-            width: 34vw;
-            height: 34vw;
+        justify-content: space-between;
+        width: 130%;
+        .lightComponent{
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          justify-content: space-between;
+          .light{
+            @media (min-width: 800px) {
+              filter: blur(100px);
+              -webkit-filter: blur(100px);
+              backdrop-filter: blur(100px); 
+            }          
+            .innerLight{
+              width: 521px;
+              height: 521px;
+              opacity: 0.3;
+              background: #59D7FF;
+              filter: blur(100px);
+              -webkit-filter: blur(100px);
+              backdrop-filter: blur(100px);           
+              transform: rotate(-180deg);
+              border-radius: 50%;
+              z-index: 0;
+              @media (max-width: 1024px) {
+                width: 34vw;
+                height: 34vw;
+              }
+              @media (max-width: 800px) {
+                width: 221px;
+                height: 321px;
+              }
+              @media (max-width: 500px) {
+                width: 181px;
+              }
+              @media (max-width: 500px) {
+                width: 141px;
+              }
+            }
           }
-        }
-        &:first-child{
-          .particle{
-            animation: linear infinite;
-            animation-name: dot1;
-            @keyframes dot1 {
-                0%  {transform: translate(0px, random(4)*20px + 40px); opacity: 1;}
-                100% {transform: translate(120px, random(4)*20px + 40px); opacity: 0;}
-            }                 
+          &:first-child{
+            .particles{
+              left: 15%;
+            }
+            .particle{
+              animation: linear infinite;
+              animation-name: dot1;
+              @keyframes dot1 {
+                  0%  {transform: translate(0px, random(2)*10px); opacity: 1;}
+                  100% {transform: translate(200px, random(2)*(-10px)); opacity: 0;}
+              }                 
+            }              
           }
-        }
-        &:last-child{
-          .particle{
-            @media (min-width: 600px) {
+          &:last-child{
+            .particle{
               animation: linear infinite;
               animation-name: dot2;
               @keyframes dot2 {
-                  0%  {transform: translate(0, -10px); opacity: 1;}
-                  100% {transform: translate(-100px, 10px); opacity: 0;}
+                0%  {transform: translate(0px, random(2)*10px); opacity: 1;}
+                100% {transform: translate(-200px, random(2)*(-10px)); opacity: 0;}
               }                 
             }
-          }
-        }        
-        .particles{
-          position: absolute;
-          display: flex;
-          width: 14%;
-          justify-content: space-between;
-          .particle{
-              width: 2px;
-              height: 2px;
-              &:nth-child(2n){
-                  width: 1px;
-                  height: 1px;
+          }        
+          .particles{
+            position: absolute;
+            display: flex;
+            width: 14%;
+            justify-content: space-between;
+            .particle{
+              position: relative;
+              z-index: -9999;
+              width: 5px;
+              height: 5px;
+              &:nth-child(2){
+                width: 4px;
+                height: 4px;
+                @media (max-width: 800px) {
+                  margin-top: 10em !important;
+                }
               }
-          }
-      }        
+              &:nth-child(3){
+                @media (max-width: 800px) {
+                  margin-top: 6em !important;
+                }
+                width: 3px;
+                height: 3px;
+              }              
+              &:nth-child(4){
+                @media (max-width: 800px) {
+                  margin-top: 4em !important;
+                }
+              }
+            }
+          }   
+        }
       }
     }
     h3{
@@ -212,6 +249,10 @@
         margin-top: 24%;
         font-size: 32px;
         line-height: 46px;
+      }
+      @media (max-width: 390px) {
+        font-size: 28px;
+        line-height: 42px;   
       }
     }
     .cards{
@@ -272,6 +313,8 @@
           .lightContainer{
             position: absolute;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
             width: 25em;
             height: 100%;
             border-top-left-radius: 29.4887px; 
@@ -287,13 +330,15 @@
             }
             .light {
               position: absolute;
-              width: 100%;
-              height: 252px;
-              opacity: 0.2;
-              -webkit-filter: blur(147.444px);
-              filter: blur(147.444px);
-              backdrop-filter: blur(147.444px); 
+              width: 60%;
+              height: 202px;
+              opacity: 1;
+              margin-top: 24%;
+              -webkit-filter: blur(107.444px);
+              filter: blur(107.444px);
+              backdrop-filter: blur(107.444px); 
               z-index: 0;
+              border-radius: 50%;
               @media (max-width: 1024px) {
                 width: 200px;
                 height: 202px;
@@ -384,6 +429,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    max-width: 100%;
+    margin-bottom: -4%;
     @media (max-width: 800px) {
       margin-top: 10%;
     }
@@ -422,12 +469,86 @@
       }      
     }
     .shroomContainer{
+      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
       @media (max-width: 800px) {
         flex-direction: column;
       }
+      .particlesAnime{
+        position: absolute;
+        margin-top: -60%;
+        left: 0;
+        width: 100%;
+        img{
+          position: absolute;
+          transition: all 1s;
+          @media (max-width: 600px) {
+            width: 2%;
+          }
+        }
+        .greenParticles{
+          margin-left: 40%;
+          margin-top: 0%;
+          @media (max-width: 800px) {
+            position: absolute;
+            width: 120%;
+            height: 80%;
+            margin-top: 0%;
+            margin-left: 19%;
+          }
+          @media (max-width: 600px) {
+            width: 140%;
+            margin-left: 14%;
+          }        
+          @media (max-width: 500px) {
+            width: 180%;
+            margin-left: 8%;
+          }    
+          @media (max-width: 400px) {
+            width: 200%;
+            margin-left: 0%;
+          }                  
+          img{
+            animation: linear infinite;
+            animation-delay: 0s;
+            &:nth-child(1){
+              margin-top: 2%;
+              margin-left: 0%;
+              animation-name: greenBar;
+              animation-duration: 11s;
+              @keyframes greenBar {
+                0%  {transform: translateY(115%); opacity: 0;}
+                50% {transform: translateY(50%); opacity: 1;}
+                100% {transform: translateY(7%); opacity: 0;}
+              }
+            }
+            &:nth-child(2){
+              margin-top: 8%;
+              margin-left: 48%;
+              animation-name: greenBar1;
+              animation-duration: 14s;
+              @keyframes greenBar1 {
+                0%  {transform: translateY(131%); opacity: 0;}
+                50% {transform: translateY(82%); opacity: 1;}
+                100% {transform: translateY(0%); opacity: 0;}
+              }
+            } 
+            &:nth-child(3){
+              margin-top: 40.4%;
+              margin-left: 46.4%;
+              animation-name: greenBar2;
+              animation-duration: 8s;
+              @keyframes greenBar2 {
+                0%  {transform: translateY(135.4%); opacity: 0;}
+                50% {transform: translateY(60.4%); opacity: 1;}
+                100% {transform: translateY(8.4%); opacity: 0;}
+              }
+            }                    
+          }
+        }
+      }      
       div{
         h1{
           margin: 0;
@@ -488,12 +609,12 @@
           width: 458px;
           height: 457px;
           background: #23DA98;
-          filter: blur(400px);
           transform: matrix(-1, 0, 0, 1, 0, 0);
           -webkit-filter: blur(147.444px);
           filter: blur(147.444px);
           backdrop-filter: blur(147.444px); 
           z-index: 0;
+          margin-bottom: -80px;
           @media (max-width: 1366px) {
             width: 200px;
             height: 202px;

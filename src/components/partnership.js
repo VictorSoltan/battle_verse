@@ -8,7 +8,10 @@ import BlueWheel from '../assets/partnership/Partnership/BlueWheel.png'
 import CCK from '../assets/partnership/Partnership/CCK.png'
 import CryptoOmg from '../assets/partnership/Partnership/cryptoOmg.png'
 import CryptoPing from '../assets/partnership/Partnership/CryptoPing.png'
+import Acheron from '../assets/partnership/Partnership/Acheron.png'
 import FrenchHunters from '../assets/partnership/Partnership/3.png'
+import CSPDAO from '../assets/partnership/Partnership/CSPDAO.png'
+import DAOMaker from '../assets/partnership/Partnership/DAOMaker.png'
 
 import Enjinstarter from '../assets/partnership/Partnership/Enjinstarter.png'
 import Ex from '../assets/partnership/Partnership/ex.png'
@@ -61,11 +64,11 @@ import aRight from '../assets/partnership/arrowRight.svg'
 export default function Partnership() {
   
   const LAUNCHPADS = [
-    { img: Bullperks, link: 'https://bullperks.com/'},
-    { img: Oxbull, link: 'https://www.oxbull.tech/#/home'},
-    { img: Enjinstarter, link: 'https://enjinstarter.com/'},
-    { img: Ex, link: 'https://www.equinox.fund/'},
-    { img: Seedify, link: 'https://launchpad.seedify.fund/'},
+    { img: Bullperks, link: 'https://app.bullperks.com/deal-detail?address=0xddc067f4b913bc50eb174042ce7910cee5faff8e'},
+    { img: Oxbull, link: 'https://www.oxbull.tech/#/presale'},
+    { img: Enjinstarter, link: 'https://launchpad.enjinstarter.com/'},
+    { img: Ex, link: 'https://app.equinox.fund/project/battleverse'},
+    { img: Seedify, link: 'https://launchpad.seedify.fund/pool_detail/upcoming/61f7639d8acc682f6f0d56b3'},
     { img: GameStation, link: 'https://www.gamestation.io/'}
   ]
  
@@ -81,7 +84,10 @@ export default function Partnership() {
     { img: Bullperks },
     { img: CryptoOmg },
     { img: CryptoPing },
+    { img: Acheron },
     { img: FrenchHunters },
+    { img: CSPDAO },
+    { img: DAOMaker },
     { img: Enjinstarter },
     { img: Decubate },
     { img: VIA },
@@ -125,15 +131,15 @@ export default function Partnership() {
   let [mediaNum, setMediaNum] = React.useState(0)
 
   const partnershipDesctop = [
-    { header: ['LAUNCHPADS', 'PARTNERSHIP', 'MEDIA PARTNERSHIP'], 
-      partners: [LAUNCHPADS, PARTNERSHIP, MEDIA], 
+    { header: ['PARTNERSHIP', 'MEDIA PARTNERSHIP', 'LAUNCHPADS'], 
+      partners: [PARTNERSHIP, MEDIA, LAUNCHPADS], 
       num: [launchNum, partnerNum, mediaNum] }
   ]
   
   const adaptivePartners = [
-    { header: ['LAUNCHPADS'], partners: [LAUNCHPADS], num: [launchNum] },
-    { header: ['PARTNERSHIP'], partners: [PARTNERSHIP], num: [partnerNum] },
-    { header: ['MEDIA PARTNERSHIP'], partners: [MEDIA], num: [mediaNum] }
+    { header: ['PARTNERSHIP'], partners: [PARTNERSHIP], num: [launchNum] },
+    { header: ['MEDIA PARTNERSHIP'], partners: [MEDIA], num: [partnerNum] },
+    { header: ['LAUNCHPADS'], partners: [LAUNCHPADS], num: [mediaNum] }
   ]
 
   let [num, setNum] = React.useState(0)
@@ -143,7 +149,7 @@ export default function Partnership() {
       <div className='partnershipContainer' key={index}>
         <div className='partnerHeader'>
           {(item.header).map((item, indx) => (
-            <button key={indx} onClick={() => setNum(indx)} className={(indx===num||window.innerWidth) < 600 && index===2 ? 'media_active active' : (indx===num||window.innerWidth) < 600 && 'active'}>{item}</button>
+            <h2 key={indx} onClick={() => setNum(indx)} className={(indx===num||window.innerWidth) < 600 && index===1 ? 'media_active active' : (indx===num||window.innerWidth) < 600 && 'active'}>{item}</h2>
           ))}
         </div>
         <main>

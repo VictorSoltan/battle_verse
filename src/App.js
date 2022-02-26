@@ -15,7 +15,7 @@ function App() {
     <div className="App">
       <Router>
         <Routes>
-          <Route path="/" element={
+          <Route path="/battle_shrooms" element={
             <><Header /><MainPage /><Footer /></>
           } />
           <Route path="/privacy_policy" element={

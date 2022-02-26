@@ -36,7 +36,7 @@ export default function Footer(){
             </a>
           ))}
         </div>
-        <p style={{marginTop: '1%'}}>Copyright © 2021. All Rights Reserved by BVGAME Limited</p>
+        <p style={{marginTop: '1%'}}>Copyright © 2022. All Rights Reserved by BVGAME Limited</p>
         <div style={{marginTop: '0%', padding: '0.5% 0 3% 0', width: '30em'}}>
           {links.map((item, index) => (
             <Link key={index} to={item.to}
