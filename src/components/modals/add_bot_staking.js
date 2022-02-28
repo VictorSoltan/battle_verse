@@ -7,9 +7,9 @@ import Energy from '../../assets/header/icon_energy.svg'
 export default function addBotStaking(props){
   return(
     <div className="addBotStakingContainer">
-      <div className="botBackground" onClick={() => {props.setAddBotStaking(false), props.setStopStaking(true)}} />
+      <div className="botBackground" onClick={() => (props.setAddBotStaking(false), props.setStopStaking(true))} />
       <div className="addBot">
-        <div className="closeModal" dangerouslySetInnerHTML={{ __html: '&#x2715' }} onClick={() => {props.setAddBotStaking(false), props.setStopStaking(true)}}/>
+        <div className="closeModal" dangerouslySetInnerHTML={{ __html: '&#x2715' }} onClick={() => (props.setAddBotStaking(false), props.setStopStaking(true))}/>
         <h1>ADD BOT ON STAKING</h1>
         <div className="infoContainer">
           <div>

@@ -34,7 +34,7 @@ export default function GetTicket({setGetTicket, setConfrts}){
             )
           })}
         </div>
-        <button onClick={() => {setGetTicket(false), setConfrts(true)}}>OPEN BOX</button>
+        <button onClick={() => (setGetTicket(false), setConfrts(true))}>OPEN BOX</button>
       </div>
     </div>
   )

@@ -121,7 +121,7 @@ export default function AddBot(props){
         <h4>TRANSFER ON STAKING</h4>
         <h2>BABY COMBAT BOT #167 G1</h2>
         <div className="sliderLight"/>
-        <button className="staking" onClick={() => {props.setAddBot(false), props.setAddBotStaking(true)}}>
+        <button className="staking" onClick={() => (props.setAddBot(false), props.setAddBotStaking(true))}>
           START STAKING
         </button>
       </div>

@@ -10,7 +10,7 @@ export default function StopStaking(props){
         <p>IF YOU STOP, THEN YOUR NFT WILL MOVE TO YOUR COLLECTION</p>
         <div>
           <button onClick={() => props.setStopStaking(false)}>STOP STAKING</button>
-          <button onClick={() => {props.setStopStaking(false), props.setAddBotStaking(true)}}>PROCEED</button>
+          <button onClick={() => (props.setStopStaking(false), props.setAddBotStaking(true))}>PROCEED</button>
         </div>
       </div>      
     </div>

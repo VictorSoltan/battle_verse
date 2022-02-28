@@ -1,7 +1,6 @@
 import './App.css';
 
 import React from "react"
-import ReactDOM from "react-dom"
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
 import {Dashboard} from "./components/dashboard"
 import Header from "./components/header"
@@ -9,40 +8,70 @@ import Wallet from "./components/wallet"
 import Profile from './components/profile';
 import Staking from './components/staking';
 // import News from './components/news';
-// import Settings from './components/settings';
-// import { Marketplace } from './pages';
-import EventEmitter from "events"
-import { Provider } from 'react-redux'
-import store from './redux/store'
+import Settings from './components/settings';
+import { Marketplace } from './pages';
+import { io } from "socket.io-client";
+import { ethers } from "ethers"
 
 function App() {
 
-  let [openSwap, setOpenSwap] = React.useState(false),
-      [signed, setSigned] = React.useState(false),
-      [account, setAccount] = React.useState(null),
-      [nameplate, setNameplate] = React.useState(null),
-      [walletConnection, setWalletConnection] = React.useState(null),
-      [walletInstall, setWalletInstall] = React.useState(null),
-      [signin, setSignin] = React.useState(true)
+    let [openSwap, setOpenSwap] = React.useState(false),
+        [signed, setSigned] = React.useState(false),
+        [account, setAccount] = React.useState(null),
+        [nameplate, setNameplate] = React.useState(null),
+        [walletConnection, setWalletConnection] = React.useState(null),
+        [walletInstall, setWalletInstall] = React.useState(null),
+        [signin, setSignin] = React.useState(false),
+        socketServer = 'back.battleverse.io',
+		[socket, setSocket] = React.useState(null)
     
+	const [verified, setVerified] = React.useState(false);
 
-  async function changeNetwork() {
-      await window.ethereum.request({
-          method: 'wallet_addEthereumChain',
-          params: [{ 
-              chainId: '0x38',
-              chainName: 'Smart Chain',
-              nativeCurrency: {
-                  name: 'Binance Smart Chain',
-                  symbol: 'BNB',
-                  decimals: 18,
-              },
-              rpcUrls: ['https://bsc-dataseed.binance.org/'],
-              blockExplorerUrls: ['https://bscscan.com/'],
-          }]
-      })
-      setSigned(true)
-  }
+    async function signAddress(message) {
+        console.log(message.session_key)
+        const provider = new ethers.providers.Web3Provider(window.ethereum)
+        const signer = provider.getSigner();
+        const client_signature = await signer.signMessage(message.session_key)
+        socket.emit('verify_signature', { "address": account, "signature": client_signature }, function (event, message) {
+            console.log('emit response', event, message);
+            console.log(socket)
+            setVerified(true)
+        });		
+    };
+
+    React.useEffect(() => {
+        if(signed&&signin&&account){
+            const newSocket = io(`wss://${socketServer}/`);
+            setSocket(newSocket);
+            console.log('socket connected')
+            console.log(newSocket)
+        }
+    }, [setSocket, signed, signin, account]);
+
+    React.useEffect(() => {
+        if(socket&&signed){
+            socket.on('session_key', signAddress);
+        }
+    }, [socket]);
+
+
+    async function changeNetwork() {
+        await window.ethereum.request({
+            method: 'wallet_addEthereumChain',
+            params: [{ 
+                chainId: '0x38',
+                chainName: 'Smart Chain',
+                nativeCurrency: {
+                    name: 'Binance Smart Chain',
+                    symbol: 'BNB',
+                    decimals: 18,
+                },
+                rpcUrls: ['https://bsc-dataseed.binance.org/'],
+                blockExplorerUrls: ['https://bscscan.com/'],
+            }]
+        })
+        setSigned(true)
+    }
 
   async function checkNetwork() {
       window.ethereum.request({ method: 'net_version' })
@@ -58,7 +87,10 @@ function App() {
   }
 
   async function enterAccount() {
-      const accounts = await window.ethereum.request({method: "eth_accounts"})
+    if(!signin&&localStorage.getItem("gIUO87HJjho8jhJLK87HJjg") === "NotStranger"){
+        setSignin(true)
+    }
+    const accounts = await window.ethereum.request({method: "eth_accounts"})
       .then((response) => {
           if(response[0]){
               setAccount(response[0])
@@ -99,43 +131,40 @@ function App() {
       else setSigned(false)
   }
 
-  if(typeof window.ethereum !== 'undefined'){
-      
-          window.ethereum.on('accountsChanged', enterAccount)
+    if(typeof window.ethereum !== 'undefined'){
+        window.ethereum.on('accountsChanged', enterAccount)
+        window.ethereum.on('networkChanged', handleNetworkChanged);
+    }
 
-          window.ethereum.on('networkChanged', handleNetworkChanged);
-  }
-
-  return <Router>
-      <Header openSwap={openSwap} setOpenSwap={setOpenSwap} account={account} signin={signin}/>
-          {signed&&signin&&account ?
-              <Routes>
-                <Route path="/" element={
-                    <Dashboard account={account} />
-                } />
-                <Route path="/no_nft" element={
-                  <Dashboard account={account} />
-                } />
-
-              <Route exact path="/staking" element={
-                  <Staking />
-                } />
-                  {/* <Route exact path="/marketplace" element={
-                      <Marketplace />
-                } /> */}
-              <Route exact path="/profile" element={
-                  <Profile account={account} />
-                } />
-              {/* <Route exact path="/news">
-                  <News />
-              </Route> */}
-              {/* <Route exact path="/settings"element={
-                  <Settings />
-                } /> */}
-              </Routes>
-              : !signed||!signin? <Wallet walletInstall={walletInstall} walletConnection={walletConnection} nameplate={nameplate} installMetamask={installMetamask} signIn={signIn} changeNetwork={changeNetwork} account={account} signin={signin} setSignin={setSignin} signed={signed}/>
-      : null}
-  </Router>
+    return <Router>
+        <Header openSwap={openSwap} setOpenSwap={setOpenSwap} account={account} signin={signin}/>
+            {signed&&signin&&account ?
+                <Routes>
+                    <Route path="/" element={
+                        <Dashboard account={account} socket={socket} verified={verified} />
+                    } />
+                    <Route path="/no_nft" element={
+                        <Dashboard account={account} socket={socket} verified={verified}/>
+                    } />
+                    <Route exact path="/staking" element={
+                        <Staking />
+                    } />
+                    <Route exact path="/marketplace" element={
+                        <Marketplace />
+                    } />
+                    <Route exact path="/profile" element={
+                        <Profile account={account} />
+                    } />
+                    <Route exact path="/profile/settings" element={
+                        <Settings />
+                    } />                
+                    {/* <Route exact path="/news">
+                        <News />
+                    </Route> */}
+                </Routes>
+            : !signed||!signin? <Wallet walletInstall={walletInstall} walletConnection={walletConnection} nameplate={nameplate} installMetamask={installMetamask} signIn={signIn} changeNetwork={changeNetwork} account={account} signin={signin} setSignin={setSignin} signed={signed}/>
+            : null}
+    </Router>
 }
 
 export default App;

@@ -3,10 +3,8 @@ import Web3 from "web3"
 import Unity, { UnityContext } from "react-unity-webgl"
 import axios from 'axios'
 import '../styles/dashboard.scss'
-import { ethers } from "ethers"
-import { io } from "socket.io-client";
 
-export const Dashboard = (props) => {
+export const Dashboard = ({account, socket, verified}) => {
   	const
 		unityContext = useMemo(() => (
 			new UnityContext({
@@ -19,15 +17,14 @@ export const Dashboard = (props) => {
     	  	 	productVersion: "1.0.2"
 			})
 		), []),
-		backendUrl = 'https://api.battleverse.io',
-		socketServer = 'back.battleverse.io'  
+		backendUrl = 'https://api.battleverse.io'
 
   	let 
   		[unityWidth, setUnityWidth] = useState(null),
-		[unityHeight, setUnityHeight] = useState(null),
-		[socket, setSocket] = useState(null)
+		[unityHeight, setUnityHeight] = useState(null)
 
-	const [nfts, setNfts] = useState({});
+	const [nfts, setNfts] = useState({}),
+		[loaded, setLoaded] = useState(null)
 
   	function reportWindowSize() {
   	  	let w = window.innerWidth, 
@@ -51,22 +48,15 @@ export const Dashboard = (props) => {
 		offers,
 		accepts,
 		waitingAcceptedOffer = false,
-  	  	uris,
-		loaded
+  	  	uris
 
   	let wait = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 	useEffect(() => {
-		const newSocket = io(`wss://${socketServer}/`);
-		setSocket(newSocket);
-		console.log('socket connected')
-		console.log(newSocket)
-
-		console.log("get_data")
 		if(window.location.pathname==='/no_nft'){
 			wallet = '0xc04032bcbcce4d43ef978cc808f1d2da5c0db3c3'
 		}else{
-			wallet = props.account
+			wallet = account
 		}
 		console.log(wallet)
 		axios(`${backendUrl}/nfts/${wallet}`)
@@ -81,14 +71,11 @@ export const Dashboard = (props) => {
 		contractQZQ = new web3.eth.Contract([{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"oldOwner","type":"address"},{"indexed":true,"internalType":"address","name":"newOwner","type":"address"}],"name":"OwnerSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},{"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"owner","type":"address"},{"internalType":"address","name":"spender","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"account","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"newOwner","type":"address"}],"name":"changeOwner","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint8","name":"","type":"uint8"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"subtractedValue","type":"uint256"}],"name":"decreaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"getOwner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"addedValue","type":"uint256"}],"name":"increaseAllowance","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address payable","name":"player","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"payReward","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"sender","type":"address"},{"internalType":"address","name":"recipient","type":"address"},{"internalType":"uint256","name":"amount","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}],
 			"0x9e69cA1850Ee19e9C02De9476339DfB3DD522856")
 			
-		return () => newSocket.close();
-	}, [setSocket]);
+		// return () => newSocket.close();
+	}, []);
 
-	function getData(){
+	// function getData(){
   	  	//await window.ethereum.enable();
-
-
-
 
   	  //balance = parseInt(await contract.methods.balanceOf(wallet).call())
 
@@ -98,10 +85,10 @@ export const Dashboard = (props) => {
   	      console.log(event.returnValues);
   	      // Do something here
   	  })*/
-	}
-//   getData()
+	// }
+	// getData()
 
-		//наш оффер кто то принял
+	//наш оффер кто то принял
 	async function getAcceptedOffer() {
 		if(offers && offers.length > 0) {
 			/*accepts = offers[0].accepts;
@@ -145,7 +132,7 @@ export const Dashboard = (props) => {
   
 	async function getIsApprovedQZQ() {
 		isApprovedQZQ = true
-		// (await contractQZQ.methods.allowance(props.account, addressBattle).call()) > 0
+		// (await contractQZQ.methods.allowance(account, addressBattle).call()) > 0
 		if(isApprovedQZQ)
 		{
 			unityContext.send("Systems", "OnBotsWeb3ApproveQZQ", 1)
@@ -191,38 +178,25 @@ export const Dashboard = (props) => {
 
 
   	useEffect(() => {
-		let loaded = false
 		if(socket){
-			async function signAddress(message) {
-				console.log(message.session_key)
-				const provider = new ethers.providers.Web3Provider(window.ethereum)
-				const signer = provider.getSigner();
-				const client_signature = await signer.signMessage(message.session_key)
-				socket.emit('verify_signature', { "address": props.account, "signature": client_signature }, function (event, message) {
-					console.log('emit response', event, message);
-					console.log(socket)
-					socket.emit('get_battles_list', {address: props.account}, async function(message){
-						let response = JSON.parse(message)
-						console.log('get_battles_list ', response)
-						if(response.length){
+            socket.emit('get_battles_list', {address: account}, async function(message){
+                let response = JSON.parse(message)
+                console.log('get_battles_list ', response)
+                if(response.length){
 
-							let offersJson = {
-								id: response[0].id,
-								nftId: response[0].nft_id,
-								nftType: response[0].nft_type,
-								nftUri: response[0].uri,
-								address: response[0].owner_address,
-								bet: Number(response[0].bet),
-							}
-	
-							while(!loaded) await wait(500)
-							unityContext.send("Systems", "OnBotsWeb3CreateBattle", JSON.stringify(offersJson))
-						}
-					})
-				});		
-		    };
+                    let offersJson = {
+                        id: response[0].id,
+                        nftId: response[0].nft_id,
+                        nftType: response[0].nft_type,
+                        nftUri: response[0].uri,
+                        address: response[0].owner_address,
+                        bet: Number(response[0].bet),
+                    }
 
-		    socket.on('session_key', signAddress);
+                    while(!loaded) await wait(500)
+                    unityContext.send("Systems", "OnBotsWeb3CreateBattle", JSON.stringify(offersJson))
+                }
+            })
 
     		if(!unityWidth) reportWindowSize()
     		window.addEventListener("resize", reportWindowSize, false);
@@ -251,7 +225,7 @@ export const Dashboard = (props) => {
 
     		unityContext.on("loaded", () => {
 				document.querySelector("#unity-loading-bar").style.display = "none"
-				loaded = true
+				setLoaded(true)
     		})
 
     		unityContext.on("ButtonEnter", () => {
@@ -268,7 +242,7 @@ export const Dashboard = (props) => {
 
 			// Мы хотим аппрув QZQ
     		unityContext.on("BotsWeb3ApproveQZQRequest", async () => {
-    		  contractQZQ.methods.approve(addressBattle, "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff").send({from:props.account}, async (error, result) => { 
+    		  contractQZQ.methods.approve(addressBattle, "0xfffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff").send({from:account}, async (error, result) => { 
 				  if(error)
 				  {
 				  }
@@ -294,7 +268,7 @@ export const Dashboard = (props) => {
 						nftId: response.nft_id,
 						nftType: response.nft_type,
 						nftUri: response.uri,
-						address: props.account,
+						address: account,
 						bet: Number(response.bet),
 					}
 					
@@ -307,7 +281,7 @@ export const Dashboard = (props) => {
 
 				let offersJson = {
 					id: String(response.id),
-					address: props.account,
+					address: account,
 					nftId: String(response.nft_id),
 					nftType: response.nft_type,
 					nftUri: response.uri,
@@ -323,7 +297,7 @@ export const Dashboard = (props) => {
 
 				let offersJson = {
 					id: String(response.id),
-					address: props.account,
+					address: account,
 					nftId: String(response.nft_id),
 					nftType: response.nft_type,
 					nftUri: response.uri,
@@ -366,7 +340,7 @@ export const Dashboard = (props) => {
 				// 	unityContext.send("Systems", "OnBotsWeb3CancelOffer");
 
 			
-				// await contractBattle.methods.CancelOffer(offerId).send({from:props.account}, async (error, result) => { 
+				// await contractBattle.methods.CancelOffer(offerId).send({from:account}, async (error, result) => { 
 				// 	if(error)
 				// 	{
 				// 	}
@@ -400,7 +374,7 @@ export const Dashboard = (props) => {
 
 					unityContext.send("Systems", "OnBotsWeb3StartBattle", JSON.stringify({offerStr}));
 				});		
-				// await contractBattle.methods.StartBattle(offerId, acceptId).send({from:props.account}, async (error, result) => {
+				// await contractBattle.methods.StartBattle(offerId, acceptId).send({from:account}, async (error, result) => {
 				// 	if(error)
 				// 	{
 				// 	}
@@ -495,7 +469,8 @@ export const Dashboard = (props) => {
     	  	  	  	<div className="container-fluid px-4">
     	  	  	  	  	<div className="row">
     	  	  	  	  	  <div className="unity-desktop" id="unity-container">
-								<Unity unityContext={unityContext} style={{width: unityWidth, height: unityHeight, display: !socket && 'none'}} id="unity-canvas" />
+								<Unity unityContext={unityContext} style={{width: unityWidth, height: unityHeight, display: !verified && 'none'}} id="unity-canvas" />
+								<h1 style={{display: !loaded||verified ? 'none' : 'block', color: 'white'}}>Please verify your wallet before play<br/>If u canceled verification, please reload the page</h1>
 							</div>
     	  	  	  	  	</div>
     	  	  	  	</div>

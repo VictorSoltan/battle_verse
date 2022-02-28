@@ -1,13 +1,11 @@
 html {
   width: 100%;
-  height: 100vh;
-  overflow-x: hidden;
-  position: absolute;
+  height: 100%;
 }
 body {
   margin: 0;
   background-color: #07161f;
-  min-height: 100vh;
+  height: 100%;
   font-family: Changa One;
   font-weight: normal;
 }
