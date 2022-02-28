@@ -1,124 +1,37 @@
 .playContainer {
+  background-image: url("../assets/Background.png");
+  background-size: cover;
+  background-repeat: no-repeat;
   width: 100vw;
-  max-width: 1920px;
+  height: calc(100vh - 80px);;
+  max-width:100%;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 80px auto -2%;
   .connectWalletContainer {
     border-radius: 12px;
+    background-color: #13222a;
+    width: 24%;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 10%;
     padding: 1.6%;
     min-width: 200px;
-    h1{
-      @media (max-width: 800px) {
-        font-size: 22px;
-        padding-inline: 8%;
-      }
-    }
-    p{
-      @media (max-width: 800px) {
-        font-size: 14px;
-        padding-inline: 8%;
-      }
-    }
-    .swapInfo{
-      display: flex;
-      flex-direction: column;
-      @media (max-width: 800px) {
-        padding-inline: 8%;
-      }
-      h2{
-        display: flex;
-        align-items: center;
-        text-align: center;
-        @media (max-width: 800px) {
-          font-size: 18px;
-        }
-        @media (max-width: 600px) {
-          font-size: 14px;
-        }   
-      }
-      ul{
-        text-align: left;
-        p{
-          margin: 1% 0;
-          padding-inline: 0%;
-        }
-      }
-      a{
-        color: #c9a061;
-        text-decoration: underline;
-        &:hover {
-          color: white;
-        }
-      }
-    }
   }
   .connectWallet {
-    border-radius: 14px;
+    background: linear-gradient(120deg, #6331c9 26.01%, #240c4a 100%);
+    border: none;
+    padding: 3% 0;
+    width: 100%;
+    border-radius: 12px;
+    font-size: 24px;
+    font-family: "Changa One", cursive;
     color: white;
-    text-decoration: none;
-    padding: 2% 1%;
-    font-family: Dela Gothic One;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 22px;
-    line-height: 22px;
-    transition: all 0.2s;
-    background: rgba(114, 28, 255, 0.1);
-    border: 2px solid #721cff;
     cursor: pointer;
-    width: 340px;
-    margin-top: 20px;
-    &:hover {
-      background: #721cff;
-    }
     @media (max-width: 800px) {
       font-size: 18px;
-      width: 240px;
-    }
-    @media (max-width: 600px) {
-      font-size: 14px;
-    }
-  }
-  #countdown{
-    color: #721cff;
-    font-family: Dela Gothic One;
-    font-size: 22px;
-    line-height: 22px;
-    @media (max-width: 800px) {
-      font-size: 18px;
-    }
-    @media (max-width: 600px) {
-      font-size: 14px;
-    }    
-  }
-  .nftInfo{
-    border-radius: 14px;
-    color: white;
-    text-decoration: none;
-    padding: 0% 6%;
-    font-family: Dela Gothic One;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 22px;
-    line-height: 22px;
-    transition: all 0.2s;
-    background: rgba(114, 28, 255, 0.1);
-    cursor: pointer;
-    text-align: center;
-    border: 2px solid #00ffa3;
-    margin-top: 20px;
-    @media (max-width: 800px) {
-      font-size: 18px;
-      width: 240px;
-    }
-    @media (max-width: 600px) {
-      font-size: 14px;
     }
   }
   .login{
@@ -143,10 +56,29 @@
         margin: -2px -2px;
         overflow: hidden;
       }
-
+      @media (max-width: 800px) {
+        font-size: 14px;
+      }
       &:first-child{
         margin-bottom: 4%;
       }
+    }
+    button{
+      display: flex;
+      background: linear-gradient(140deg, #6534ce 8.91%, #3c1182 90.52%);color: white;
+      border: none;
+      margin-top: 6%;
+      margin-bottom: -4%;
+      padding: 2.35%;
+      width: 68%;
+      font-size: 22px;
+      line-height: 22px;
+      border-radius: 10px;
+      font-family: "Changa One";
+      font-style: italic;
+      cursor: pointer;
+      align-items: center;
+      justify-content: center;
     }
   }
 }

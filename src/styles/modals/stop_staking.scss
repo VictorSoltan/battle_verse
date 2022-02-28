@@ -1,0 +1,97 @@
+.stopStakingContainer {
+  position: fixed;
+  top: 0;
+  overflow: hidden;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  .botBackground {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+  }
+  .stopStaking {
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #13222a;
+    border-radius: 12px;
+    padding: 2%;
+    height: 220px;
+    width: 380px;
+    font-family: "Changa One";
+    font-weight: normal;
+    font-style: italic;
+    text-align: center;
+    @media (max-width: 800px) {
+      height: 180px;
+      width: 320px;
+    }
+    @media (max-width: 500px) {
+      height: 180px;
+      width: 280px;
+    }
+    h1 {
+      background: -webkit-linear-gradient(90deg, #670e29 10%, #ff415d 70%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0%;
+      @media (max-width: 800px) {
+        font-size: 28px;
+      }
+      @media (max-width: 500px) {
+        font-size: 24px;
+      }
+    }
+    p {
+      width: 90%;
+      font-size: 22px;
+      @media (max-width: 800px) {
+        font-size: 18px;
+      }
+      @media (max-width: 500px) {
+        font-size: 14px;
+      }
+    }
+    div {
+      display: flex;
+      justify-content: space-between;
+      width: 90%;
+      margin-top: 5%;
+      button {
+        font-family: Changa One;
+        font-style: italic;
+        font-weight: normal;
+        font-size: 22px;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 4% 0%;
+        width: 48%;
+        cursor: pointer;
+        @media (max-width: 800px) {
+          font-size: 14px;
+        }
+        @media (max-width: 500px) {
+          font-size: 13px;
+        }
+        &:nth-child(1) {
+          background: linear-gradient(140deg, #fb3856 8.91%, #a91a2f 90.52%);
+        }
+        &:nth-child(2) {
+          background: linear-gradient(
+            137.57deg,
+            #7bdb00 5.95%,
+            #075200 100.95%
+          );
+        }
+      }
+    }
+  }
+}

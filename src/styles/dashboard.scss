@@ -1,0 +1,65 @@
+.dashboard{
+    max-height: calc(100vh - 80px);
+    max-width: 100vw;
+    overflow: hidden;
+    position: relative;
+    .tutorial{
+        z-index: 99999;
+        color: white;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 0;
+        .left, .right{
+            position: absolute;
+            z-index: 99999999;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+        .left{
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 56vw;
+        }
+        .right{
+            top: 0;
+            right: 0;
+            height: 100vh;
+            width: 14vw;
+        }    
+        .center{
+            position: absolute;
+            z-index: 99999999;
+            top: 0;
+            left: 56vw;
+            height: 0;
+            div{
+                background-color: rgba(0, 0, 0, 0.4);
+                width: 30vw;
+                &:first-child{
+                    height: 10vh;
+                }
+                &:nth-child(2){
+                    height: 37vh;
+                    pointer-events: none;    
+                    background-color: rgba(0, 0, 0, 0);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    overflow: hidden;
+                    background-position: center;
+                    background-size: cover;
+                    background-repeat: no-repeat;
+                    // .light{
+                    //     width: 29vw;
+                    //     height: 36.6vh;
+                    //     background: none;
+                    // }
+                }
+                &:last-child{
+                    height: 51vh;
+                }
+            }
+        }        
+    }
+}

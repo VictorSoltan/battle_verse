@@ -1,0 +1,223 @@
+.converter{
+    position: fixed;
+    top: 0;
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 11000;
+    margin: 0 auto;
+    text-align: center;
+    font-weight: normal !important;
+    color: white;
+    h1, h2, p, span, button, input{
+        font-weight: normal !important;
+        font-style: italic !important;
+        text-transform: uppercase;
+    }
+    .shadowBackground {
+        cursor: pointer;
+        position: absolute;
+        height: 100vh;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.6);
+      }
+      .converterInner{
+        z-index: 11001;
+        background-color: #13222a;
+        border-radius: 8px;
+        padding: 2em 1%;
+        margin-bottom: 6em;
+        @media (max-width: 800px) {
+            padding: 2% 2em;
+        }
+        .title{
+            @media (max-width: 800px) {
+                width: 200px;
+                margin: 0 auto;
+            }
+        }
+        .innerConverter{
+            margin: 0 auto;
+            .windows{
+                display: flex;
+                align-items: center;
+                width: 840px;
+                margin: 0 auto;
+                @media (max-width: 1024px) {
+                    width: 800px;
+                }
+                @media (max-width: 800px) {
+                    flex-direction: column;
+                    width: 320px;
+                }
+                .convertWindow{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #20313A;
+                    border-radius: 24px;
+                    padding: 0.8% 4% 1%;
+                    font-family: "Changa One", cursive;
+                    color: white;
+                    z-index: 0;
+                    width: 100%;
+                    header{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        width: 100%;
+                        .select{
+                            cursor: pointer;
+                            .selected{
+                                display: flex;
+                                align-items: center;
+                                background-color: #07161f;
+                                border-radius: 8px;
+                                padding: 8px;
+                                width: 98px;
+                                h3{
+                                    margin: 0 8px;
+                                }
+                                img{
+                                    &:first-child{
+                                        width: 24px;
+                                        height: 24px;
+                                    }
+                                    &:last-child{
+                                        transition: all 0.4s;
+                                        width: 9px;
+                                        height: 9px;
+                                        margin-left: auto;
+                                    }
+                                }
+                            }
+                            .options{
+                                position: absolute;
+                                background-color: #07161f;
+                                margin-top: 3px;
+                                border-radius: 8px;
+                                div{
+                                    display: flex;
+                                    align-items: center;
+                                    padding: 8px 17px;
+                                    cursor: pointer;
+                                    &:first-child{
+                                        border-top-left-radius: 8px;
+                                        border-top-right-radius: 8px;
+                                    }
+                                    &:last-child{
+                                        border-bottom-left-radius: 8px;
+                                        border-bottom-right-radius: 8px;
+                                    }                                    
+                                    &:hover{
+                                        background-color: #0b202e;
+                                    }
+                                    h3{
+                                        margin: 0px;
+                                        margin-left: 10px;
+                                    }
+                                    img{
+                                        width: 24px;
+                                        height: 24px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    main{
+                        display: flex;
+                        align-items: center;
+                        align-self: flex-start;
+                        color: #7b9bac;
+                        font-size: 0.83em;
+                        margin-bottom: -4px;
+                        span{
+                            color: white;
+                        }
+                        img{
+                            margin-left: 3px;
+                            width: 18px;
+                            height: 18px;
+                        }
+                    }
+                    footer{
+                        display: flex;
+                        margin: 1.4em 0 1.2em;
+                        width: 100%;
+                        input{
+                            background-color: #07161f;
+                            border-radius: 8px;
+                            height: 40px;
+                            width: 100%;
+                            font-size: 20px;
+                            font-family: "Changa One", cursive;
+                            color: white;
+                            -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+                            -moz-box-sizing: border-box; /* Firefox, other Gecko */
+                            box-sizing: border-box;
+                            border: none;
+                            padding-inline: 4%;
+                            padding-bottom: 0.8%;
+                            @media (max-width: 800px) {
+                              min-width: 171px;
+                              font-size: 18px;
+                              padding-right: 90px;
+                              height: 30px;
+                            }
+                            &:focus{
+                                outline: 2px solid #7B9BAC;
+                            }
+                        }
+                    }
+                }
+                .arrow{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: #20313A;
+                    padding: 8px;
+                    border-radius: 18px;
+                    z-index: 10;
+                    margin: -14px;
+                    border: 5px solid #07161F;
+                    cursor: pointer;
+                    img{
+                        filter: brightness(0) invert(1);
+                        width: 20px;
+                        @media (max-width: 800px) {
+                            transform: rotate(90deg);
+                        }
+                    }
+                    &:hover{
+                        background-color: #304550;
+                    }
+                }
+            }
+            .transInfo{
+                margin-top: 2em;
+                margin-bottom: -1em;
+            }
+            .mainButton{
+                background: linear-gradient(120deg, #6331c9 26.01%, #240c4a 100%);
+                border: none;
+                margin: 2em 0 1em;
+                padding: 10px 0;
+                width: 320px;
+                font-size: 20px;
+                border-radius: 8px;
+                font-family: "Changa One", cursive;
+                font-weight: normal;
+                color: white;
+                cursor: pointer;
+                @media (max-width: 800px) {
+                  font-size: 18px;
+                }
+            }
+        }
+    }
+}
