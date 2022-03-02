@@ -9,9 +9,13 @@ import Profile from './components/profile';
 import Staking from './components/staking';
 // import News from './components/news';
 import Settings from './components/settings';
+
+import Proccessing from './components/proccessing';
+
 import { Marketplace } from './pages';
 import { io } from "socket.io-client";
 import { ethers } from "ethers"
+import axios from 'axios'
 
 function App() {
 
@@ -25,7 +29,8 @@ function App() {
         socketServer = 'back.battleverse.io',
 		[socket, setSocket] = React.useState(null)
     
-	const [verified, setVerified] = React.useState(false);
+	const [verified, setVerified] = React.useState(false),
+        [user, setUser] = React.useState(null)
 
     async function signAddress(message) {
         console.log(message.session_key)
@@ -40,13 +45,13 @@ function App() {
     };
 
     React.useEffect(() => {
-        if(signed&&signin&&account){
+        if(signed&&signin&&account&&user){
             const newSocket = io(`wss://${socketServer}/`);
             setSocket(newSocket);
             console.log('socket connected')
             console.log(newSocket)
         }
-    }, [setSocket, signed, signin, account]);
+    }, [setSocket, signed, signin, account, user]);
 
     React.useEffect(() => {
         if(socket&&signed){
@@ -73,18 +78,18 @@ function App() {
         setSigned(true)
     }
 
-  async function checkNetwork() {
-      window.ethereum.request({ method: 'net_version' })
-          .then((response) => { 
-              if (response === '56'){
-                  setSigned(true)
-                  setWalletConnection(true) 
-              }else{
-                  setSigned(false)
-                  setWalletConnection(true)                    
-                  setNameplate('Change metamask network to BSC')
-              }})
-  }
+    async function checkNetwork() {
+        window.ethereum.request({ method: 'net_version' })
+        .then((response) => { 
+            if (response === '56'){
+                setSigned(true)
+                setWalletConnection(true) 
+            }else{
+                setSigned(false)
+                setWalletConnection(true)                    
+                setNameplate('Change metamask network to BSC')
+            }})
+    }
 
   async function enterAccount() {
     if(!signin&&localStorage.getItem("gIUO87HJjho8jhJLK87HJjg") === "NotStranger"){
@@ -109,14 +114,15 @@ function App() {
   if(typeof window.ethereum !== 'undefined') enterAccount() 
   else if(!walletInstall) setWalletInstall('🦊 Install Metamask') 
 
-  async function signIn() {
-      const accounts = await window.ethereum.request({method: "eth_requestAccounts"})
-          .then((response) => {
-              if(response[0]) 
-              setSigned(true)
-              setAccount(response[0])
-          })
-  }
+    async function signIn() {
+        const accounts = await window.ethereum.request({method: "eth_requestAccounts"})
+            .then((response) => {
+                if(response[0]) {
+                    setSigned(true)
+                    setAccount(response[0])
+                }
+            })
+    }
 
   function installMetamask() {
       if(navigator.userAgent.indexOf("Chrome") != -1){
@@ -136,10 +142,25 @@ function App() {
         window.ethereum.on('networkChanged', handleNetworkChanged);
     }
 
+    React.useEffect(() => {
+        if(account){
+            axios.get('https://tokens.battleverse.io/get_user', { params: { account: account } })
+            .then(response => {
+              console.log(response.data);
+              if(response.data !== "No such user") setUser(response.data)
+              else setUser(false)
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+        }
+    }, [account])
     return <Router>
         <Header openSwap={openSwap} setOpenSwap={setOpenSwap} account={account} signin={signin}/>
             {signed&&signin&&account ?
                 <Routes>
+                    {user ? 
+                    <>
                     <Route path="/" element={
                         <Dashboard account={account} socket={socket} verified={verified} />
                     } />
@@ -156,8 +177,18 @@ function App() {
                         <Profile account={account} />
                     } />
                     <Route exact path="/profile/settings" element={
-                        <Settings />
-                    } />                
+                        <Settings account={account} sign={'SETTINGS'} />
+                    } />     
+                    </>
+                    : user === false ?
+                    <Route exact path="/" element={
+                        <Settings account={account} sign={'Create account to enter game'} />
+                    } />    
+                    : 
+                    <Route exact path="/" element={
+                        <Proccessing />
+                    } /> 
+                    }        
                     {/* <Route exact path="/news">
                         <News />
                     </Route> */}
