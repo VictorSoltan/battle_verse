@@ -26,8 +26,18 @@ export default function Content(props){
   let [timeFilter, setTimeFilter] = useState(0)
 
   let [botInfo, setBotInfo] = useState([])
+  const [user, setUser] = useState(null)
 
   useEffect(() => {
+    axios.get('https://tokens.battleverse.io/get_user', { params: { account: props.account } })
+    .then(response => {
+      console.log(response.data);
+      if(response.data !== "No such user") setUser(response.data)
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+
     let newArr = []
     const fetchData = async () => {
       await axios.get(`https://api.battleverse.io/nfts/${props.account}`, 30000)
@@ -124,18 +134,21 @@ export default function Content(props){
 
         <div className="contentTop">
           <div className="userInfo">
-            <img src={Ava} alt="avatar" />
+            <div className="avaContainer">
+              {user && 
+                <img src={user.avatar!=='' ? user.avatar : Ava} alt="avatar" />}
+            </div>
             <div className="accountInfo">
-              <h1>ADDF SMY LOOONG
+              <h1>{user && user.name}
                 <img src={Copy} alt="copy" />
               </h1>
                 <div className="info">
                   <span>E-mail</span>
-                  <h5>addfsmylooong@baatleverse.io</h5>
+                  <h5>{user && user.email}</h5>
                 </div>
                 <div className="info">
                   <span>Discord</span>
-                  <h5>@addfsmylooong</h5>
+                  <h5>{user && user.discord}</h5>
                 </div>              
             </div>
             <Link className="link" to="settings">CHANGE</Link>
