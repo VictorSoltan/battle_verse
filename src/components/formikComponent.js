@@ -9,10 +9,14 @@ import Ava from '../assets/settings/ava.png'
 export default function FormikComponent({user, account, avatar}) {
     const 
       validationSchema = Yup.object().shape({
-        name: Yup.string().required(),
-        description: Yup.string(),
-        email: Yup.string().email().required(),
+        name: Yup.string().required('Required')
+        .max(15, 'Must be 15 characters or less'),
+        description: Yup.string()
+        .max(200, 'Must be 200 characters or less'),
+        email: Yup.string().email('Invalid email address').required('Required')
+        .max(20, 'Must be 20 characters or less'),
         discord: Yup.string()
+        .max(20, 'Must be 20 characters or less')
       })
 
     function chooseFile() {
@@ -23,17 +27,38 @@ export default function FormikComponent({user, account, avatar}) {
      
       const loadFile = async(e) => {
         let image = document.querySelector('.avatarus');
-        image.src = URL.createObjectURL(e.target.files[0])
         // console.log(image)
         console.log(e.target.files[0].size)
-        if(e.target.files[0].size > 40000){
-          alert('image size is too big')
+        const base64 = await convertBase64(e.target.files[0])
+        if(e.target.files[0].size > 140000){
+          alert(e.target.files[0].size/140000)
+          alert(e.target.files[0].size/(e.target.files[0].size/140000))
+          const resizedImge = await reduce_image_file_size(base64, e.target.files[0].size/140000)
+          setImg(resizedImge) 
+          image.src = resizedImge
         }else{
-          const base64 = await convertBase64(e.target.files[0])
-          console.log(base64)
           setImg(base64) 
+          image.src = base64
         }
       };
+
+      async function reduce_image_file_size(base64Str, resizeNumb) {
+        let resized_base64 = await new Promise((resolve) => {
+          let img = new Image()
+          img.src = base64Str
+          img.onload = () => {
+            let canvas = document.createElement('canvas')
+            let width = (img.width/resizeNumb)
+            let height = (img.height/resizeNumb)
+            canvas.width = width
+            canvas.height = height
+            let ctx = canvas.getContext('2d')
+            ctx.drawImage(img, 0, 0, width, height)
+            resolve(canvas.toDataURL()) // this will return base64 image results after resize
+          }
+        });
+        return resized_base64;
+      }
 
       const convertBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -87,7 +112,7 @@ export default function FormikComponent({user, account, avatar}) {
           })
           .then(function (response) {
             console.log(response);
-            location.reload(); 
+            if(endpoint==="create_user") location.reload()
           })
           .catch(function (error) {
             console.log(error);
@@ -118,9 +143,8 @@ export default function FormikComponent({user, account, avatar}) {
                 onBlur={handleBlur('name')}
                 value={values.name}
                 placeholder={'Enter your name'} />
-              {errors.name ?
-                <p>Name is required</p>
-              : null }                
+              {errors.name &&
+                <p>{errors.name}</p>}                
               <label>DESCRIPTION</label>
               <textarea className='description'
                 name="description"
@@ -128,6 +152,8 @@ export default function FormikComponent({user, account, avatar}) {
                 onBlur={handleBlur('description')}
                 value={values.description}
                 placeholder={'description'}/>
+                {errors.description &&
+                  <p>{errors.description}</p> }                 
               <label>E-MAIL</label>
               <input
                 type="email"
@@ -137,11 +163,8 @@ export default function FormikComponent({user, account, avatar}) {
                 onBlur={handleBlur('email')}
                 value={values.email}
                 placeholder={'E-Mail'}/>
-              {errors.email&&values.email==='' ?
-                <p>Email address is required</p>
-              : errors.email&&values.email!=='' ?
-                <p>Invalid email address</p>
-              : null }
+                {errors.email &&
+                  <p>{errors.email}</p> }
               <label>DISCORD</label>
               <input  
                 name="discord"
@@ -149,6 +172,8 @@ export default function FormikComponent({user, account, avatar}) {
                 onBlur={handleBlur('discord')}
                 value={values.discord}
                 placeholder={'Discord'}/>
+                {errors.discord &&
+                  <p>{errors.discord}</p> }                
             </div>
           </div>
           <div className='buttons'>
